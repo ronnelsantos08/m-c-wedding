@@ -317,7 +317,7 @@ const App: React.FC = () => {
               {/* Faded Background Image for Location Box */}
               <div className="absolute inset-0 z-0 pointer-events-none opacity-10 group-hover:opacity-20 transition-opacity">
                 <img 
-                  src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=1200" 
+                  src="/garden.jpeg" 
                   alt="Trabiesa Garden Location" 
                   className="w-full h-full object-cover grayscale-[30%]"
                 />
@@ -357,7 +357,7 @@ const App: React.FC = () => {
               {/* Faded Background Image for Reception Box */}
               <div className="absolute inset-0 z-0 pointer-events-none opacity-10 group-hover:opacity-20 transition-opacity">
                 <img 
-                  src="https://images.unsplash.com/photo-1546190255-451a91afc548?auto=format&fit=crop&q=80&w=1200" 
+                  src="/pavillion.jpeg" 
                   alt="Trabiesa Pavillion Reception" 
                   className="w-full h-full object-cover grayscale-[30%]"
                 />
@@ -622,7 +622,7 @@ const App: React.FC = () => {
               <Reveal delay={400}>
                 <div className="grid grid-cols-2 gap-6 h-[400px]">
                   <div className="relative bg-[#D4A5A5] rounded-[3rem] shadow-lg flex flex-col items-center justify-center text-white transform hover:-translate-y-2 transition-transform duration-500 overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1594235412402-9f9932a37c18?auto=format&fit=crop&q=80&w=800" alt="Dusty Rose" className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
+                    <img src="/dustyrose.webp" alt="Dusty Rose" className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
                     <div className="relative z-10 text-center px-4">
                       <span className="font-script text-4xl block drop-shadow-md">Dusty Rose</span>
                     </div>
@@ -652,7 +652,17 @@ const App: React.FC = () => {
         <Reveal>
           <div className="font-script text-7xl md:text-9xl text-[#D4A5A5] mb-8 relative z-10">M & C</div>
           <p className="font-script text-3xl text-[#8E7C9B] relative z-10">Together Forever in His Love</p>
-          <p className="text-[10px] uppercase tracking-[0.5em] text-[#A68DAD] mt-6 relative z-10">April 26, 2026 • Tagaytay</p>
+          <p className="text-[10px] uppercase tracking-[0.5em] text-[#A68DAD] mt-6 relative z-10">
+  Powered by:{" "}
+  <a
+    href="https://ronnelsantos.vercel.app"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-[#8E7C9B] underline transition-colors"
+  >
+    Webworks
+  </a>
+</p>
         </Reveal>
       </footer>
 
