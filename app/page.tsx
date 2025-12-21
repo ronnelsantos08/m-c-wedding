@@ -15,7 +15,8 @@ import {
   Utensils,
   Quote,
   ExternalLink,
-  Crown
+  Crown,
+  Gift
 } from 'lucide-react';
 
 /**
@@ -129,6 +130,37 @@ const App: React.FC = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const [name, setName] = useState('');
+const [email, setEmail] = useState('');
+const [attending, setAttending] = useState('');
+const [guests, setGuests] = useState('1');
+const [message, setMessage] = useState('');
+const [submitted, setSubmitted] = useState(false);
+
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // Here you can:
+  // 1️⃣ Send data to an API endpoint
+  // 2️⃣ Send email via serverless function
+  // 3️⃣ Save to Google Sheets using API
+
+  console.log({ name, email, attending, guests, message });
+
+  // Reset form
+  setName('');
+  setEmail('');
+  setAttending('');
+  setGuests('1');
+  setMessage('');
+  setSubmitted(true);
+
+  setTimeout(() => setSubmitted(false), 5000);
+};
+
+
+  
 
   const SectionTitle: React.FC<SectionTitleProps> = ({ children, subtitle }) => (
     <Reveal threshold={0.2}>
@@ -388,7 +420,77 @@ const App: React.FC = () => {
               </div>
             </div>
           </Reveal>
+         
         </div>
+        <Reveal delay={500}>
+  <div className="relative overflow-hidden p-12 backdrop-blur-md  hover:shadow-xl transition-all">
+    <h3 className="text-4xl font-script text-[#8E7C9B] mb-6 text-center">RSVP</h3>
+    <p className="text-gray-600 mb-6 text-center">
+      Kindly let us know if you’ll be attending our wedding.
+    </p>
+
+    <form
+      action="https://docs.google.com/forms/d/e/1FAIpQLScz0-QjBlHFn2QGSdW-txHDzW7p3lMH50GDcwPL-kanUnHohQ/formResponse"
+      method="POST"
+      target="_blank"
+      className="max-w-2xl mx-auto space-y-6"
+    >
+      {/* Name */}
+      <input
+        type="text"
+        name="entry.549690523"
+        placeholder="Your Name"
+        required
+        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A5A5]"
+      />
+
+      {/* Email */}
+      <input
+        type="email"
+        name="entry.14247718"
+        placeholder="Email"
+        required
+        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A5A5]"
+      />
+
+      {/* Attending */}
+      <select
+        name="entry.1843377973"
+        required
+        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A5A5]"
+      >
+        <option value="">Will you attend?</option>
+        <option value="Yes, can’t wait!">Yes, can’t wait!</option>
+        <option value="No, sadly can’t make it">No, sadly can’t make it</option>
+      </select>
+
+      {/* Number of Guests */}
+      <input
+        type="number"
+        name="entry.882834054"
+        placeholder="Number of Guests"
+        min={1}
+        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A5A5]"
+      />
+
+      {/* Message */}
+      <textarea
+        name="entry.1222939743"
+        placeholder="Message / Notes (optional)"
+        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A5A5]"
+        rows={4}
+      />
+
+      <button
+        type="submit"
+        className="w-full p-3 bg-[#D4A5A5] text-white font-semibold rounded-lg hover:bg-[#8E7C9B] transition-colors"
+      >
+        Submit RSVP
+      </button>
+    </form>
+  </div>
+</Reveal>
+
       </section>
 
       {/* Entourage Section */}
@@ -637,6 +739,29 @@ const App: React.FC = () => {
               </Reveal>
             </div>
           </div>
+        </div>
+        {/* Registry Section */}
+        <div className="max-w-2xl mx-auto mt-24 text-center px-6 relative z-10">
+          <Reveal delay={200}>
+             <div className="p-12 bg-white/40 backdrop-blur-sm rounded-[3rem] border border-white">
+                <Gift className="text-[#D4A5A5] mx-auto mb-6" size={32} />
+                <h4 className="font-script text-4xl text-[#8E7C9B] mb-4">Wedding Registry</h4>
+                <p className="font-light text-gray-600 leading-relaxed mb-8">
+                  Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, 
+                  a contribution towards our future together would be sincerely appreciated. 
+                </p>
+                <div className="inline-flex gap-4 p-4 bg-white/60 rounded-2xl border border-pink-50">
+                   <div className="text-left px-4 border-r border-pink-100">
+                      <p className="text-[8px] uppercase tracking-widest text-gray-400">GCash / Maya</p>
+                      <p className="font-serif font-bold text-[#8E7C9B]">-----</p>
+                   </div>
+                   <div className="text-left px-4">
+                      <p className="text-[8px] uppercase tracking-widest text-gray-400">BDO Account</p>
+                      <p className="font-serif font-bold text-[#8E7C9B]">----</p>
+                   </div>
+                </div>
+             </div>
+          </Reveal>
         </div>
       </section>
 
