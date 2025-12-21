@@ -18,10 +18,33 @@ import {
   Crown
 } from 'lucide-react';
 
+/**
+ * Types & Interfaces
+ */
+interface RevealProps {
+  children: React.ReactNode;
+  width?: string;
+  delay?: number;
+  threshold?: number;
+}
+
+interface SectionTitleProps {
+  children: React.ReactNode;
+  subtitle?: string;
+}
+
+interface AnimationProps {
+  top?: number;
+  left?: number;
+  size?: number;
+  delay: number;
+  duration: number;
+}
+
 // Improved Scroll Reveal Component
-const Reveal = ({ children, width = "w-full", delay = 0, threshold = 0.15 }) => {
+const Reveal: React.FC<RevealProps> = ({ children, width = "w-full", delay = 0, threshold = 0.15 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,7 +79,7 @@ const Reveal = ({ children, width = "w-full", delay = 0, threshold = 0.15 }) => 
   );
 };
 
-const WindStreak = ({ top, delay, duration }) => (
+const WindStreak: React.FC<AnimationProps> = ({ top, delay, duration }) => (
   <div 
     className="absolute h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none animate-wind"
     style={{
@@ -69,7 +92,7 @@ const WindStreak = ({ top, delay, duration }) => (
   />
 );
 
-const HeroSparkle = ({ left, top, size, delay, duration }) => (
+const HeroSparkle: React.FC<AnimationProps> = ({ left, top, size, delay, duration }) => (
   <div 
     className="absolute rounded-full bg-white blur-[1px] animate-sparkle-float pointer-events-none"
     style={{
@@ -79,12 +102,12 @@ const HeroSparkle = ({ left, top, size, delay, duration }) => (
       height: `${size}px`,
       animationDelay: `${delay}s`,
       animationDuration: `${duration}s`,
-      boxShadow: `0 0 ${size * 2}px rgba(255, 255, 255, 0.8)`
+      boxShadow: `0 0 ${(size || 1) * 2}px rgba(255, 255, 255, 0.8)`
     }}
   />
 );
 
-const App = () => {
+const App: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -107,7 +130,7 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const SectionTitle = ({ children, subtitle }) => (
+  const SectionTitle: React.FC<SectionTitleProps> = ({ children, subtitle }) => (
     <Reveal threshold={0.2}>
       <div className="text-center mb-16 relative z-10">
         <h2 className="text-5xl md:text-7xl font-script text-[#8E7C9B] mb-2 tracking-normal">{children}</h2>
@@ -190,7 +213,6 @@ const App = () => {
             <h1 className="text-6xl md:text-[8rem] font-script text-white leading-none mb-4 pb-4 drop-shadow-2xl">Michael & Charlotte</h1>
           </Reveal>
 
-          {/* Date Display on Hero */}
           <Reveal delay={500}>
              <div className="flex flex-col items-center justify-center mb-10">
                <div className="h-px w-16 bg-white/40 mb-4"></div>
@@ -291,56 +313,78 @@ const App = () => {
         <SectionTitle subtitle="Save the Date">Wedding Details</SectionTitle>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 relative z-10">
           <Reveal delay={100}>
-            <div className="p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
-              <Calendar className="text-[#D4A5A5] mb-6 transition-transform group-hover:scale-110" size={40} />
-              <h3 className="text-4xl font-script text-[#8E7C9B] mb-4">The Ceremony</h3>
-              <p className="flex items-center gap-3 text-lg mb-4 italic text-[#A68DAD]"><Clock size={20} /> 2:30 PM</p>
-              <div className="flex gap-3">
-                <MapPin className="text-[#D4A5A5] shrink-0" size={24} />
-                <div className="flex-1">
-                  <div className="flex items-center justify-between group/link">
-                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#D4A5A5] transition-colors">
-                      <p className="font-script text-2xl">Trabiesa Garden</p>
-                      <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
-                    </a>
-                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#FDF8F8] rounded-full text-[#D4A5A5] hover:bg-[#D4A5A5] hover:text-white transition-all transform group-hover/link:scale-110 shadow-sm" title="Open in Google Maps">
-                      <ExternalLink size={18} />
-                    </a>
+            <div className="relative overflow-hidden p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
+              {/* Faded Background Image for Location Box */}
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-10 group-hover:opacity-20 transition-opacity">
+                <img 
+                  src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=1200" 
+                  alt="Trabiesa Garden Location" 
+                  className="w-full h-full object-cover grayscale-[30%]"
+                />
+              </div>
+              
+              <div className="relative z-10">
+                <Calendar className="text-[#D4A5A5] mb-6 transition-transform group-hover:scale-110" size={40} />
+                <h3 className="text-4xl font-script text-[#8E7C9B] mb-4">The Ceremony</h3>
+                <p className="flex items-center gap-3 text-lg mb-4 italic text-[#A68DAD]"><Clock size={20} /> 2:30 PM</p>
+                <div className="flex gap-3">
+                  <MapPin className="text-[#D4A5A5] shrink-0" size={24} />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between group/link">
+                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#D4A5A5] transition-colors">
+                        <p className="font-script text-2xl">Trabiesa Garden</p>
+                        <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
+                      </a>
+                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/60 rounded-full text-[#D4A5A5] hover:bg-[#D4A5A5] hover:text-white transition-all transform group-hover/link:scale-110 shadow-sm" title="Open in Google Maps">
+                        <ExternalLink size={18} />
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="mt-8 pt-8 border-t border-gray-100">
-                <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-4">Officiated By</p>
-                <div className="space-y-2">
-                    <p className="font-serif">Pastor Salvador Nava <span className="text-[10px] text-[#A68DAD] italic ml-2">(Officiant)</span></p>
-                    <p className="font-serif">Pastor Joebert Armian <span className="text-[10px] text-[#A68DAD] italic ml-2">(Assistant Officiant)</span></p>
+                <div className="mt-8 pt-8 border-t border-gray-100/50">
+                  <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-4 font-semibold">Officiated By</p>
+                  <div className="space-y-2">
+                      <p className="font-serif text-[#5D5461]">Pastor Salvador Nava <span className="text-[10px] text-[#A68DAD] italic ml-2">(Officiant)</span></p>
+                      <p className="font-serif text-[#5D5461]">Pastor Joebert Armian <span className="text-[10px] text-[#A68DAD] italic ml-2">(Assistant Officiant)</span></p>
+                  </div>
                 </div>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={300}>
-            <div className="p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
-              <Sparkles className="text-[#A68DAD] mb-6 transition-transform group-hover:scale-110" size={40} />
-              <h3 className="text-4xl font-script text-[#8E7C9B] mb-4">The Reception</h3>
-              <p className="flex items-center gap-3 text-lg mb-4 italic text-[#A68DAD]"><Clock size={20} /> Following the Ceremony</p>
-              <div className="flex gap-3">
-                <MapPin className="text-[#A68DAD] shrink-0" size={24} />
-                <div className="flex-1">
-                  <div className="flex items-center justify-between group/link">
-                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#8E7C9B] transition-colors">
-                      <p className="font-script text-2xl">Trabiesa Pavillion</p>
-                      <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
-                    </a>
-                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#FDF8F8] rounded-full text-[#A68DAD] hover:bg-[#A68DAD] hover:text-white transition-all transform group-hover/link:scale-110 shadow-sm" title="Open in Google Maps">
-                      <ExternalLink size={18} />
-                    </a>
+            <div className="relative overflow-hidden p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
+              {/* Faded Background Image for Reception Box */}
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-10 group-hover:opacity-20 transition-opacity">
+                <img 
+                  src="https://images.unsplash.com/photo-1546190255-451a91afc548?auto=format&fit=crop&q=80&w=1200" 
+                  alt="Trabiesa Pavillion Reception" 
+                  className="w-full h-full object-cover grayscale-[30%]"
+                />
+              </div>
+
+              <div className="relative z-10">
+                <Sparkles className="text-[#A68DAD] mb-6 transition-transform group-hover:scale-110" size={40} />
+                <h3 className="text-4xl font-script text-[#8E7C9B] mb-4">The Reception</h3>
+                <p className="flex items-center gap-3 text-lg mb-4 italic text-[#A68DAD]"><Clock size={20} /> Following the Ceremony</p>
+                <div className="flex gap-3">
+                  <MapPin className="text-[#A68DAD] shrink-0" size={24} />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between group/link">
+                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#8E7C9B] transition-colors">
+                        <p className="font-script text-2xl">Trabiesa Pavillion</p>
+                        <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
+                      </a>
+                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/60 rounded-full text-[#A68DAD] hover:bg-[#A68DAD] hover:text-white transition-all transform group-hover/link:scale-110 shadow-sm" title="Open in Google Maps">
+                        <ExternalLink size={18} />
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="mt-8 pt-8 border-t border-gray-100">
-                <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-4">Reception Host</p>
-                <p className="font-serif">Zyra</p>
+                <div className="mt-8 pt-8 border-t border-gray-100/50">
+                  <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-4 font-semibold">Reception Host</p>
+                  <p className="font-serif text-[#5D5461]">Zyra</p>
+                </div>
               </div>
             </div>
           </Reveal>
@@ -361,7 +405,6 @@ const App = () => {
           <SectionTitle subtitle="Witnesses of our Love">The Wedding Entourage</SectionTitle>
           
           <div className="space-y-16">
-            {/* Parents Section */}
             <Reveal>
               <div className="text-center max-w-2xl mx-auto p-12 bg-[#FDF8F8]/80 backdrop-blur-sm rounded-[3rem] shadow-sm border border-pink-50/50">
                 <Crown className="text-[#D4A5A5] mx-auto mb-4" size={32} />
@@ -386,7 +429,6 @@ const App = () => {
               </div>
             </Reveal>
 
-            {/* Principal Sponsors */}
             <Reveal delay={200}>
               <div className="bg-[#FDF8F8]/90 backdrop-blur-md p-16 rounded-[4rem] shadow-sm border border-white">
                 <h4 className="font-script text-5xl text-center text-[#8E7C9B] mb-12">Principal Sponsors</h4>
@@ -412,7 +454,6 @@ const App = () => {
               </div>
             </Reveal>
 
-            {/* Bestman & Maid of Honor */}
             <Reveal delay={300}>
                 <div className="grid md:grid-cols-2 gap-8">
                     <div className="bg-white p-10 rounded-[3rem] border border-[#FDF8F8] text-center shadow-sm">
@@ -426,7 +467,6 @@ const App = () => {
                 </div>
             </Reveal>
 
-            {/* Bridesmaids & Groomsmen */}
             <Reveal delay={400}>
               <div className="bg-white p-16 rounded-[4rem] border border-[#FDF8F8] shadow-sm">
                 <h4 className="font-script text-4xl text-center text-[#8E7C9B] mb-12">Groomsmen & Bridesmaids</h4>
@@ -446,7 +486,6 @@ const App = () => {
               </div>
             </Reveal>
 
-            {/* Secondary Sponsors */}
             <Reveal delay={500}>
               <div className="grid md:grid-cols-3 gap-8">
                 {[
@@ -464,7 +503,6 @@ const App = () => {
               </div>
             </Reveal>
 
-            {/* Bearers & Flower Girls */}
             <Reveal delay={600}>
               <div className="grid lg:grid-cols-2 gap-8">
                 <div className="bg-white p-12 rounded-[4rem] border border-[#FDF8F8] shadow-sm">
