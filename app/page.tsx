@@ -184,9 +184,9 @@ const handleSubmit = (e: React.FormEvent) => {
 const SectionTitle: React.FC<SectionTitleProps> = ({ children, subtitle }) => (
   <Reveal threshold={0.2}>
     <div className="text-center mb-10 md:mb-16 relative z-10 px-4">
-      <h2 className="text-4xl md:text-7xl font-script text-[#8E7C9B] mb-2 tracking-normal">{children}</h2>
+      <h2 className="text-4xl md:text-7xl font-script text-[black] mb-2 tracking-normal">{children}</h2>
       <div className="h-px w-24 md:w-32 bg-gradient-to-r from-transparent via-[#D4A5A5] to-transparent mx-auto mb-4"></div>
-      {subtitle && <p className="text-[#A68DAD] italic font-light tracking-widest uppercase text-[9px] md:text-[10px]">{subtitle}</p>}
+      {subtitle && <p className="text-[black] italic font-light tracking-widest uppercase text-[9px] md:text-[10px]">{subtitle}</p>}
     </div>
   </Reveal>
 );
@@ -390,7 +390,7 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
     <Music size={16} className="opacity-80" />
   </button>
   <audio ref={audioRef} loop>
-  <source src="/bgmusic.mp3" type="audio/mpeg" />
+  <source src="/bgmusic2.mp3" type="audio/mpeg" />
 </audio>
 </div>
           <Reveal delay={500}>
@@ -714,7 +714,7 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
   <img
     src="/deco1.png" // replace with your image URL
     alt="Decoration"
-    className="absolute bottom-4 right-4 w-30 h-30 animate-bounce"
+    className="absolute bottom-[-100] right-[-100] w-60 h-60 animate-bounce"
   />
 </div>
 
@@ -743,9 +743,9 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
 
       {/* Program Flow */}
       <section id="program" className="py-32 px-6 bg-[#FDF8F8] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
+        <div className="absolute inset-0 opacity-[1] pointer-events-none">
           <img 
-            src="https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=2000" 
+            src="/programbg.jpg" 
             alt="Cherry blossoms" 
             className="w-full h-full object-cover"
           />
@@ -773,14 +773,14 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
               <Reveal key={i} delay={i * 50}>
                 <div className={`flex items-center gap-8 mb-8 relative ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   <div className="hidden md:block w-1/2 text-right">
-                    {i % 2 === 1 && <span className="text-[#A68DAD] font-serif italic text-sm">{item.time}</span>}
+                    {i % 2 === 1 && <span className="text-[#C9A9A6] font-serif italic text-sm">{item.time}</span>}
                   </div>
-                  <div className="z-10 w-8 h-8 rounded-full bg-[#D4A5A5] flex items-center justify-center text-white shrink-0 shadow-lg shadow-pink-100">
+                  <div className="z-10 w-8 h-8 rounded-full bg-[#C9A9A6] flex items-center justify-center text-white shrink-0 shadow-lg shadow-pink-100">
                     <div className="scale-75">{item.icon}</div>
                   </div>
                   <div className={`w-full md:w-1/2 ${i % 2 === 0 ? 'text-left' : 'md:text-left'}`}>
-                    <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl border-l-4 border-[#D4A5A5] transition-colors hover:shadow-md border-r border-t border-b border-white">
-                      <h5 className="font-bold text-[#8E7C9B]">{item.title}</h5>
+                    <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl border-l-4 border-[#C9A9A6] transition-colors hover:shadow-md border-r border-t border-b border-white">
+                      <h5 className="font-bold text-[#C9A9A6]">{item.title}</h5>
                       <p className="text-xs text-gray-500 font-light">{item.desc}</p>
                     </div>
                   </div>
@@ -793,52 +793,68 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
 
       {/* Attire Section */}
       <section id="attire" className="py-32 px-6 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+        <div className="absolute inset-0 opacity-[1] pointer-events-none">
           <img 
-            src="https://images.unsplash.com/photo-1517722014278-c256a91a6fba?auto=format&fit=crop&q=80&w=2000" 
+            src="/motifbg.jpg" 
             alt="White garden flowers" 
             className="w-full h-full object-cover"
           />
         </div>
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <SectionTitle subtitle="Cherry Blossoms in Tagaytay">Wedding Motif</SectionTitle>
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <Reveal delay={100}>
-                <div className="p-8 bg-[#FDF8F8]/90 backdrop-blur-sm rounded-[2rem] shadow-sm border-t-8 border-[#D4A5A5] border-x border-b border-white">
-                  <h4 className="font-script text-2xl text-[#8E7C9B] mb-2">The Ladies</h4>
-                  <p className="font-light">Long dress or Gown in shades of <span className="font-bold text-[#D4A5A5]">Dusty Rose</span> or <span className="font-bold text-[#A68DAD]">Lilac</span>.</p>
-                </div>
-              </Reveal>
-              <Reveal delay={200}>
-                <div className="p-8 bg-[#FDF8F8]/90 backdrop-blur-sm rounded-[2rem] shadow-sm border-t-8 border-[#A68DAD] border-x border-b border-white">
-                  <h4 className="font-script text-2xl text-[#8E7C9B] mb-2">The Gentlemen</h4>
-                  <p className="font-light">Dark colored suits or long sleeves reflecting the motif shades.</p>
-                </div>
-              </Reveal>
+  <SectionTitle subtitle="Cherry Blossoms in Tagaytay">Wedding Motif</SectionTitle>
+  <div className="grid lg:grid-cols-2 gap-16 items-center">
+    {/* Left Cards */}
+    <div className="space-y-6">
+      <Reveal delay={100}>
+        <div className="p-8 bg-[#FDF8F8]/90 backdrop-blur-sm rounded-[2rem] shadow-sm border-t-8 border-[#D4A5A5] border-x border-b border-white">
+          <h4 className="font-script text-2xl text-[#8E7C9B] mb-2">The Ladies</h4>
+          <p className="font-light">
+            Long dress or Gown in shades of 
+            <span className="font-bold text-[#D4A5A5]"> Dusty Rose</span> or 
+            <span className="font-bold text-[#A68DAD]"> Lilac</span>.
+          </p>
+        </div>
+      </Reveal>
+      <Reveal delay={200}>
+        <div className="p-8 bg-[#FDF8F8]/90 backdrop-blur-sm rounded-[2rem] shadow-sm border-t-8 border-[#A68DAD] border-x border-b border-white">
+          <h4 className="font-script text-2xl text-[#8E7C9B] mb-2">The Gentlemen</h4>
+          <p className="font-light">Dark colored suits or long sleeves reflecting the motif shades.</p>
+        </div>
+      </Reveal>
+    </div>
+    
+    {/* Right Images */}
+    <div className="relative">
+      <Reveal delay={400}>
+        <div className="grid grid-cols-2 gap-6 h-[400px]">
+          <div className="relative  rounded-[3rem] shadow-lg flex flex-col items-center justify-center text-white transform hover:-translate-y-2 transition-transform duration-500 overflow-hidden group">
+            <img src="/dustyrose.png" alt="Dusty Rose" className="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
+            <div className="relative z-10 text-center px-4">
+              <span className="font-script text-4xl block drop-shadow-md">Dusty Rose</span>
             </div>
-            
-            <div className="relative">
-              <Reveal delay={400}>
-                <div className="grid grid-cols-2 gap-6 h-[400px]">
-                  <div className="relative bg-[#D4A5A5] rounded-[3rem] shadow-lg flex flex-col items-center justify-center text-white transform hover:-translate-y-2 transition-transform duration-500 overflow-hidden group">
-                    <img src="/dustyrose.webp" alt="Dusty Rose" className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
-                    <div className="relative z-10 text-center px-4">
-                      <span className="font-script text-4xl block drop-shadow-md">Dusty Rose</span>
-                    </div>
-                  </div>
-                  <div className="relative bg-[#A68DAD] rounded-[3rem] shadow-lg mt-12 flex flex-col items-center justify-center text-white transform hover:translate-y-2 transition-transform duration-500 overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1621335829175-95f437384d7c?auto=format&fit=crop&q=80&w=800" alt="Lilac" className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
-                    <div className="relative z-10 text-center px-4">
-                      <span className="font-script text-4xl block drop-shadow-md">Lilac</span>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
+          </div>
+          <div className="relative  rounded-[3rem] shadow-lg mt-12 flex flex-col items-center justify-center text-white transform hover:translate-y-2 transition-transform duration-500 overflow-hidden group">
+            <img src="lilac.png" alt="Lilac" className="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
+            <div className="relative z-10 text-center px-4">
+              <span className="font-script text-4xl block drop-shadow-md">Lilac</span>
             </div>
           </div>
         </div>
+      </Reveal>
+    </div>
+  </div>
+
+  {/* Color Palette */}
+  <div className="flex justify-center mt-12 gap-6">
+    <div className="w-10 h-10 rounded-full bg-[#D4A5A5] shadow-md"></div>
+    <div className="w-10 h-10 rounded-full bg-[#A68DAD] shadow-md"></div>
+    <div className="w-10 h-10 rounded-full bg-[#8E7C9B] shadow-md"></div>
+    <div className="w-10 h-10 rounded-full bg-[#F2D5D5] shadow-md"></div>
+    <div className="w-10 h-10 rounded-full bg-[#FFF0F5] shadow-md"></div>
+  </div>
+</div>
+
         {/* Registry Section */}
         <div className="max-w-2xl mx-auto mt-24 text-center px-6 relative z-10">
           <Reveal delay={200}>

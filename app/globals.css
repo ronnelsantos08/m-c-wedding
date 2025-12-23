@@ -37,3 +37,7 @@ body {
 .ring-float {
   animation: ringFloat 3s ease-in-out infinite;
 }
+
+.animate-bounce {
+  animation: ringFloat 3s ease-in-out infinite;
+}
