@@ -9,7 +9,6 @@ import {
   Menu,
   X,
   Sparkles,
-  Music,
   Users,
   Camera,
   Utensils,
@@ -19,6 +18,8 @@ import {
   Gift
 } from 'lucide-react';
 
+
+import { Play, Pause, Music } from "lucide-react";
 /**
  * Types & Interfaces
  */
@@ -131,6 +132,22 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+
+const audioRef = useRef<HTMLAudioElement | null>(null);
+const [isPlaying, setIsPlaying] = useState(false);
+
+const toggleMusic = () => {
+  if (!audioRef.current) return;
+
+  if (isPlaying) {
+    audioRef.current.pause();
+  } else {
+    audioRef.current.play();
+  }
+
+  setIsPlaying(!isPlaying);
+};
+
   const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [attending, setAttending] = useState('');
@@ -222,7 +239,7 @@ const handleSubmit = (e: React.FormEvent) => {
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-[#2D2430]">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=2000" 
+            src="/hero.png" 
             alt="Wedding flowers background" 
             className="w-full h-full object-cover opacity-70 scale-100"
           />
@@ -244,7 +261,18 @@ const handleSubmit = (e: React.FormEvent) => {
           <Reveal delay={400}>
             <h1 className="text-6xl md:text-[8rem] font-script text-white leading-none mb-4 pb-4 drop-shadow-2xl">Michael & Charlotte</h1>
           </Reveal>
-
+          <div className="absolute bottom-6 right-6 z-40">
+  <button
+    onClick={toggleMusic}
+    className="flex items-center gap-2 px-4 py-3 rounded-full bg-black/15 backdrop-blur-md border border-white/30 text-white hover:bg-black/25 transition-all shadow-lg"
+  >
+    {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+    <Music size={16} className="opacity-80" />
+  </button>
+  <audio ref={audioRef} loop>
+  <source src="/bgmusic.mp3" type="audio/mpeg" />
+</audio>
+</div>
           <Reveal delay={500}>
              <div className="flex flex-col items-center justify-center mb-10">
                <div className="h-px w-16 bg-white/40 mb-4"></div>
@@ -261,8 +289,13 @@ const handleSubmit = (e: React.FormEvent) => {
                 “Wait on the LORD; be of good courage…”
               </p>
               <p className="uppercase tracking-[0.4em] text-white/70 text-[10px] font-bold">— Psalm 27:14</p>
+              
             </div>
+            
+
+
           </Reveal>
+          
           
           <Reveal delay={800}>
             <div className="relative z-30">
@@ -276,7 +309,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
       {/* Love Story Section */}
       <section id="story" className="py-32 px-6 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.2] pointer-events-none">
           <img 
             src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=2000" 
             alt="Soft pink flowers" 
@@ -334,9 +367,9 @@ const handleSubmit = (e: React.FormEvent) => {
 
       {/* Details Section */}
       <section id="details" className="py-32 px-6 bg-[#FDF8F8] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+        <div className="absolute inset-0 opacity-[.5] pointer-events-none">
           <img 
-            src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=2000" 
+            src="/weddetails.jpg" 
             alt="Garden pathway" 
             className="w-full h-full object-cover"
           />
@@ -627,7 +660,7 @@ const handleSubmit = (e: React.FormEvent) => {
                   <h4 className="font-script text-4xl text-[#8E7C9B] mb-10 text-center">Flower Girls</h4>
                   <div className="space-y-8">
                     <div className="text-center group">
-                       <p className="text-[9px] uppercase tracking-widest text-gray-400 group-hover:text-[#D4A5A5] transition-colors">Maiden of Honor</p>
+                       <p className="text-[9px] uppercase tracking-widest text-gray-400 group-hover:text-[#D4A5A5] transition-colors">Flower Girl</p>
                        <p className="font-serif text-lg">Ms. Vivienne Isabelle Kristine Dizon</p>
                     </div>
                     <div className="text-center group">
