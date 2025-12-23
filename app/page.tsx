@@ -17,7 +17,10 @@ import {
   Crown,
   Gift,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  HelpCircle,
+  Plus,
+  Minus
 } from 'lucide-react';
 
 
@@ -115,6 +118,7 @@ const App: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeEntourageCard, setActiveEntourageCard] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Trabiesa+Tagaytay";
 
   const sparkleData = useMemo(() => {
@@ -309,6 +313,25 @@ const entourageData = [
 const nextCard = () => setActiveEntourageCard((prev) => (prev + 1) % entourageData.length);
 const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageData.length - 1 : prev - 1));
 
+const faqData = [
+  {
+    question: "What is the dress code?",
+    answer: "We would love to see our guests in Formal/Semi-Formal attire. We suggest pastel colors or neutral tones to match our wedding theme."
+  },
+  {
+    question: "Can I bring a plus one?",
+    answer: "Due to venue capacity, we can only accommodate the number of seats reserved for you in your invitation. Please check your RSVP form for your specific guest count."
+  },
+  {
+    question: "What is your gift preference?",
+    answer: "Your presence at our wedding is the greatest gift of all. However, should you wish to honor us with a gift, a monetary contribution towards our new life together would be sincerely appreciated."
+  },
+  {
+    question: "When is the RSVP deadline?",
+    answer: "Please let us know if you can join us by March 15, 2026. This helps us finalize arrangements with our venue and caterers."
+  }
+];
+
   return (
     <div className="min-h-screen bg-[#FDF8F8] text-[#5D5461] font-sans selection:bg-[#D4A5A5] selection:text-white overflow-x-hidden">
       <style>{`
@@ -361,7 +384,7 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
           <img 
             src="/hero.png" 
             alt="Wedding flowers background" 
-            className="w-full h-full object-cover opacity-70 scale-100"
+            className="w-full h-full object-cover opacity-100 scale-100"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-[#FDF8F8]"></div>
         </div>
@@ -501,7 +524,7 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
 
       {/* Details Section */}
       <section id="details" className="py-32 px-6 bg-[#FDF8F8] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[.5] pointer-events-none">
+        <div className="absolute inset-0 opacity-[.8] pointer-events-none">
           <img 
             src="/lilac.jpg" 
             alt="Garden pathway" 
@@ -511,84 +534,90 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
 
         <SectionTitle subtitle="Save the Date">Wedding Details</SectionTitle>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 relative z-10">
-          <Reveal delay={100}>
-            <div className="relative overflow-hidden p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
-              {/* Faded Background Image for Location Box */}
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-25 group-hover:opacity-30 transition-opacity">
-                <img 
-                  src="/garden.jpeg" 
-                  alt="Trabiesa Garden Location" 
-                  className="w-full h-full object-cover grayscale-[30%]"
-                />
-              </div>
-              
-              <div className="relative z-10">
-                <Calendar className="text-[#D4A5A5] mb-6 transition-transform group-hover:scale-110" size={40} />
-                <h3 className="text-4xl font-script text-[#8E7C9B] mb-4">The Ceremony</h3>
-                <p className="flex items-center gap-3 text-lg mb-4 italic text-[#A68DAD]"><Clock size={20} /> 2:30 PM</p>
-                <div className="flex gap-3">
-                  <MapPin className="text-[#D4A5A5] shrink-0" size={24} />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between group/link">
-                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#D4A5A5] transition-colors">
-                        <p className="font-script text-2xl">Trabiesa Garden</p>
-                        <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
-                      </a>
-                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/60 rounded-full text-[#D4A5A5] hover:bg-[#D4A5A5] hover:text-white transition-all transform group-hover/link:scale-110 shadow-sm" title="Open in Google Maps">
-                        <ExternalLink size={18} />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-8 pt-8 border-t border-gray-100/50">
-                  <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-4 font-semibold">Officiated By</p>
-                  <div className="space-y-2">
-                      <p className="font-serif text-[#5D5461]">Pastor Salvador Nava <span className="text-[10px] text-[#A68DAD] italic ml-2">(Officiant)</span></p>
-                      <p className="font-serif text-[#5D5461]">Pastor Joebert Armian <span className="text-[10px] text-[#A68DAD] italic ml-2">(Assistant Officiant)</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Reveal>
 
-          <Reveal delay={300}>
-            <div className="relative overflow-hidden p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
-              {/* Faded Background Image for Reception Box */}
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-25 group-hover:opacity-30 transition-opacity">
-                <img 
-                  src="/pavillion.jpeg" 
-                  alt="Trabiesa Pavillion Reception" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
+{/* Ceremony */}
+<Reveal delay={100}>
+  <div className="flex flex-col bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all overflow-hidden group">
+    
+    {/* Top Image */}
+    <div className="w-full h-64 md:h-80 relative">
+      <img 
+        src="/garden.jpeg" 
+        alt="Trabiesa Garden Location" 
+        className="w-full h-full object-cover rounded-t-[3rem] grayscale-[30%]"
+      />
+    </div>
 
-              <div className="relative z-10">
-                <Sparkles className="text-[#A68DAD] mb-6 transition-transform group-hover:scale-110" size={40} />
-                <h3 className="text-4xl font-script text-[#8E7C9B] mb-4">The Reception</h3>
-                <p className="flex items-center gap-3 text-lg mb-4 italic text-[#A68DAD]"><Clock size={20} /> Following the Ceremony</p>
-                <div className="flex gap-3">
-                  <MapPin className="text-[#A68DAD] shrink-0" size={24} />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between group/link">
-                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#8E7C9B] transition-colors">
-                        <p className="font-script text-2xl">Trabiesa Pavillion</p>
-                        <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
-                      </a>
-                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/60 rounded-full text-[#A68DAD] hover:bg-[#A68DAD] hover:text-white transition-all transform group-hover/link:scale-110 shadow-sm" title="Open in Google Maps">
-                        <ExternalLink size={18} />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-8 pt-8 border-t border-gray-100/50">
-                  <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-4 font-semibold">Reception Host</p>
-                  <p className="font-serif text-[#5D5461]">Zyra</p>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-         
+    {/* Details Section */}
+    <div className="p-8 flex flex-col gap-4 relative z-10">
+      <Calendar className="text-[#D4A5A5] mb-4 transition-transform group-hover:scale-110" size={40} />
+      <h3 className="text-4xl font-script text-[#8E7C9B] mb-2">The Ceremony</h3>
+      <p className="flex items-center gap-3 text-lg italic text-[#A68DAD]"><Clock size={20} /> 2:30 PM</p>
+
+      <div className="flex gap-3 items-start">
+        <MapPin className="text-[#D4A5A5] shrink-0" size={24} />
+        <div className="flex-1">
+          <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#D4A5A5] transition-colors">
+            <p className="font-script text-2xl">Trabiesa Garden</p>
+            <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
+          </a>
         </div>
+        <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/60 rounded-full text-[#D4A5A5] hover:bg-[#D4A5A5] hover:text-white transition-all shadow-sm" title="Open in Google Maps">
+          <ExternalLink size={18} />
+        </a>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-gray-100/50">
+        <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-2 font-semibold">Officiated By</p>
+        <p className="font-serif text-[#5D5461]">Pastor Salvador Nava <span className="text-[10px] text-[#A68DAD] italic ml-2">(Officiant)</span></p>
+        <p className="font-serif text-[#5D5461]">Pastor Joebert Armian <span className="text-[10px] text-[#A68DAD] italic ml-2">(Assistant Officiant)</span></p>
+      </div>
+    </div>
+  </div>
+</Reveal>
+
+{/* Reception */}
+<Reveal delay={300}>
+  <div className="flex flex-col bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all overflow-hidden group">
+    
+    {/* Top Image */}
+    <div className="w-full h-64 md:h-80 relative">
+      <img 
+        src="/pavillion.jpeg" 
+        alt="Trabiesa Pavillion Reception" 
+        className="w-full h-full object-cover rounded-t-[3rem]"
+      />
+    </div>
+
+    {/* Details Section */}
+    <div className="p-8 flex flex-col gap-4 relative z-10">
+      <Sparkles className="text-[#A68DAD] mb-4 transition-transform group-hover:scale-110" size={40} />
+      <h3 className="text-4xl font-script text-[#8E7C9B] mb-2">The Reception</h3>
+      <p className="flex items-center gap-3 text-lg italic text-[#A68DAD]"><Clock size={20} /> Following the Ceremony</p>
+
+      <div className="flex gap-3 items-start">
+        <MapPin className="text-[#A68DAD] shrink-0" size={24} />
+        <div className="flex-1">
+          <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#8E7C9B] transition-colors">
+            <p className="font-script text-2xl">Trabiesa Pavillion</p>
+            <p className="text-xs uppercase tracking-widest text-gray-500">Tagaytay City</p>
+          </a>
+        </div>
+        <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/60 rounded-full text-[#A68DAD] hover:bg-[#A68DAD] hover:text-white transition-all shadow-sm" title="Open in Google Maps">
+          <ExternalLink size={18} />
+        </a>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-gray-100/50">
+        <p className="text-xs uppercase tracking-widest text-[#A68DAD] mb-2 font-semibold">Reception Host</p>
+        <p className="font-serif text-[#5D5461]">Zyra</p>
+      </div>
+    </div>
+  </div>
+</Reveal>
+
+</div>
+
         <Reveal delay={500}>
   <div className="relative overflow-hidden p-12 backdrop-blur-md  hover:shadow-xl transition-all">
     <h3 className="text-4xl font-script text-[#8E7C9B] mb-6 text-center">RSVP</h3>
@@ -880,13 +909,47 @@ const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageD
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 md:py-32 px-6 bg-[#FDF8F8] relative overflow-hidden">
+        <div className="max-w-3xl mx-auto relative z-10">
+          <SectionTitle subtitle="Everything You Need To Know">Frequently Asked Questions</SectionTitle>
+          <div className="space-y-4">
+            {faqData.map((item, index) => (
+              <Reveal key={index} delay={index * 100}>
+                <div 
+                  className="bg-white rounded-2xl md:rounded-3xl border border-white shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer"
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                >
+                  <div className="p-6 md:p-8 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <div className={`p-2 rounded-xl transition-colors duration-300 ${openFaq === index ? 'bg-[#D4A5A5] text-white' : 'bg-pink-50 text-[#D4A5A5]'}`}>
+                        <HelpCircle size={20} />
+                      </div>
+                      <h4 className="font-serif text-lg md:text-xl text-[#5D5461]">{item.question}</h4>
+                    </div>
+                    {openFaq === index ? <Minus size={20} className="text-[#D4A5A5]" /> : <Plus size={20} className="text-[#D4A5A5]" />}
+                  </div>
+                  <div 
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${openFaq === index ? 'max-h-[300px] border-t border-pink-50/50' : 'max-h-0'}`}
+                  >
+                    <div className="p-6 md:p-8 pt-0 md:pt-0 text-gray-500 font-light leading-relaxed">
+                      {item.answer}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-24 bg-[#FAF6F6] text-center px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
+        <div className="absolute inset-0 opacity-[1] pointer-events-none">
           <img 
-            src="https://images.unsplash.com/photo-1507502707541-f369a3b18502?auto=format&fit=crop&q=80&w=2000" 
+            src="/footer.jpg" 
             alt="Garden silhouette" 
-            className="w-full h-full object-cover grayscale"
+            className="w-full h-full object-cover "
           />
         </div>
         <Reveal>
