@@ -15,7 +15,9 @@ import {
   Quote,
   ExternalLink,
   Crown,
-  Gift
+  Gift,
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react';
 
 
@@ -112,7 +114,7 @@ const HeroSparkle: React.FC<AnimationProps> = ({ left, top, size, delay, duratio
 const App: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [activeEntourageCard, setActiveEntourageCard] = useState(0);
   const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Trabiesa+Tagaytay";
 
   const sparkleData = useMemo(() => {
@@ -179,15 +181,133 @@ const handleSubmit = (e: React.FormEvent) => {
 
   
 
-  const SectionTitle: React.FC<SectionTitleProps> = ({ children, subtitle }) => (
-    <Reveal threshold={0.2}>
-      <div className="text-center mb-16 relative z-10">
-        <h2 className="text-5xl md:text-7xl font-script text-[#8E7C9B] mb-2 tracking-normal">{children}</h2>
-        <div className="h-px w-32 bg-gradient-to-r from-transparent via-[#D4A5A5] to-transparent mx-auto mb-4"></div>
-        {subtitle && <p className="text-[#A68DAD] italic font-light tracking-widest uppercase text-[10px]">{subtitle}</p>}
+const SectionTitle: React.FC<SectionTitleProps> = ({ children, subtitle }) => (
+  <Reveal threshold={0.2}>
+    <div className="text-center mb-10 md:mb-16 relative z-10 px-4">
+      <h2 className="text-4xl md:text-7xl font-script text-[#8E7C9B] mb-2 tracking-normal">{children}</h2>
+      <div className="h-px w-24 md:w-32 bg-gradient-to-r from-transparent via-[#D4A5A5] to-transparent mx-auto mb-4"></div>
+      {subtitle && <p className="text-[#A68DAD] italic font-light tracking-widest uppercase text-[9px] md:text-[10px]">{subtitle}</p>}
+    </div>
+  </Reveal>
+);
+
+const entourageData = [
+  {
+    title: "Parents of the Bride",
+    content: (
+      <div className="text-center px-2">
+        <Crown className="text-[#D4A5A5] mx-auto mb-4" size={28} />
+        <p className="font-serif text-gray-400 mb-2 italic text-sm md:text-lg leading-relaxed">
+          The late Cristina Garchitorena & Wilfredo Dizon (+)
+        </p>
+        <div className="h-px w-16 bg-[#D4A5A5]/20 mx-auto my-6 md:my-8"></div>
+        <p className="text-[9px] uppercase tracking-[0.3em] text-[#D4A5A5] font-bold mb-4 md:mb-6">Represented By</p>
+        <div className="grid grid-cols-2 gap-4 md:gap-8">
+          <div>
+            <p className="text-[8px] uppercase tracking-widest text-gray-400 mb-1 italic">Aunt</p>
+            <p className="font-serif text-base md:text-xl text-[#5D5461]">Josefina Thompson</p>
+          </div>
+          <div>
+            <p className="text-[8px] uppercase tracking-widest text-gray-400 mb-1 italic">Brother</p>
+            <p className="font-serif text-base md:text-xl text-[#5D5461]">Jose Mari Dizon</p>
+          </div>
+        </div>
       </div>
-    </Reveal>
-  );
+    )
+  },
+  {
+    title: "Principal Sponsors",
+    content: (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 max-h-[350px] md:max-h-[450px] overflow-y-auto px-4 custom-scrollbar">
+        {[
+          ["Ptr. Chubasco Villamor", "Mrs. Emily Villamor"],
+          ["Ptr. Ejaz Qaisars", "Mrs. Geraldine Qaisars"],
+          ["Mr. Albert Anthony Tuason", "Mrs. Marina Carina Medel"],
+          ["Mr. Salvador Altar", "Mrs. Lilibeth Altar"],
+          ["Mr. Gerardo Ramon Romano", "Mrs. Roslyn Romano"],
+          ["Mr. Richard Hamilton", "Mrs. Betty Tan-Gomez"],
+          ["Mr. Kelly Kuhlmann", "Mrs. Lynn Thompson-Kuhlmann"],
+          ["Mr. Andy Belmonte", "Mrs. Gladys Rosales"],
+          ["Ptr. Sang Hyun Park", "Mrs. Josefa Callos"]
+        ].map(([mr, mrs], i) => (
+          <div key={i} className="text-center p-3 rounded-xl bg-[#FDF8F8]/50 border border-pink-50/50">
+            <p className="font-serif text-[#5D5461] text-[12px] md:text-sm leading-tight">{mr}</p>
+            <p className="text-[10px] text-[#D4A5A5] font-script text-lg my-1 leading-none">&</p>
+            <p className="font-serif text-[#5D5461] text-[12px] md:text-sm leading-tight">{mrs}</p>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  {
+    title: "Bestman & Maid of Honor",
+    content: (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 w-full max-w-xl mx-auto">
+        <div className="bg-white p-6 md:p-10 rounded-3xl border border-[#FDF8F8] text-center shadow-sm">
+          <p className="text-[8px] uppercase tracking-widest text-[#D4A5A5] mb-2 font-bold">Bestman</p>
+          <p className="font-serif text-lg md:text-2xl text-[#8E7C9B]">Mr. Rob Joy III</p>
+        </div>
+        <div className="bg-white p-6 md:p-10 rounded-3xl border border-[#FDF8F8] text-center shadow-sm">
+          <p className="text-[8px] uppercase tracking-widest text-[#D4A5A5] mb-2 font-bold">Maid of Honor</p>
+          <p className="font-serif text-lg md:text-2xl text-[#8E7C9B]">Viktoria Sarah P. Dizon</p>
+        </div>
+      </div>
+    )
+  },
+  {
+    title: "Secondary Sponsors",
+    content: (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-h-[350px] md:max-h-[450px] overflow-y-auto px-4 custom-scrollbar">
+        {[
+          { label: "Candle", names: ["Mr. Ronaldo Surara", "Mrs. Christine Surara"] },
+          { label: "Cord", names: ["Mr. Kevin Ralph Tuason", "Ms. Jenette Jaudian"] },
+          { label: "Veil", names: ["Mr. Dohnell Dy", "Dra. Cara Imperial"] }
+        ].map((item, i) => (
+          <div key={i} className="p-5 md:p-8 bg-[#FDF8F8] rounded-3xl text-center border border-white">
+            <p className="text-[8px] uppercase tracking-[0.2em] text-[#D4A5A5] mb-2 font-bold">{item.label}</p>
+            <p className="font-serif text-[13px] md:text-sm leading-tight">{item.names[0]}</p>
+            <p className="font-script text-xl text-[#D4A5A5] my-1 leading-none">&</p>
+            <p className="font-serif text-[13px] md:text-sm leading-tight">{item.names[1]}</p>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  {
+    title: "Bearers & Flower Girls",
+    content: (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[400px] overflow-y-auto px-2 custom-scrollbar">
+        <div className="space-y-3">
+           <h5 className="text-center font-script text-2xl text-[#D4A5A5] mb-2">Bearers</h5>
+           {[
+             { label: "Ring Bearer", name: "Mr. Seth Alain Callos" },
+             { label: "Arrhae Bearer", name: "Mr. Jesus Gabriel Dizon" },
+             { label: "Bible Bearer", name: "Mr. Ralph Laurenz Medel" }
+           ].map((item, i) => (
+             <div key={i} className="text-center p-3 rounded-2xl bg-white border border-pink-50">
+               <p className="text-[7px] uppercase tracking-widest text-gray-400">{item.label}</p>
+               <p className="font-serif text-[13px] md:text-sm">{item.name}</p>
+             </div>
+           ))}
+        </div>
+        <div className="space-y-3">
+           <h5 className="text-center font-script text-2xl text-[#D4A5A5] mb-2">Flower Girls</h5>
+           <div className="text-center p-3 rounded-2xl bg-white border border-pink-50">
+              <p className="text-[7px] uppercase tracking-widest text-gray-400">Flower Girl</p>
+              <p className="font-serif text-[13px] md:text-sm">Ms. Vivienne Isabelle Kristine Dizon</p>
+           </div>
+           <div className="text-center p-3 rounded-2xl bg-white border border-pink-50">
+              <p className="text-[7px] uppercase tracking-widest text-gray-400">Flower Girl</p>
+              <p className="font-serif text-[13px] md:text-sm">Ms. Joy Qaisars</p>
+           </div>
+        </div>
+      </div>
+    )
+  }
+];
+
+const nextCard = () => setActiveEntourageCard((prev) => (prev + 1) % entourageData.length);
+const prevCard = () => setActiveEntourageCard((prev) => (prev === 0 ? entourageData.length - 1 : prev - 1));
 
   return (
     <div className="min-h-screen bg-[#FDF8F8] text-[#5D5461] font-sans selection:bg-[#D4A5A5] selection:text-white overflow-x-hidden">
@@ -353,13 +473,27 @@ const handleSubmit = (e: React.FormEvent) => {
             </Reveal>
 
             <Reveal delay={500}>
-              <div className="bg-white/90 backdrop-blur-sm p-10 rounded-[3rem] border border-pink-100 shadow-sm italic">
-                <p className="font-serif text-xl text-[#8E7C9B] leading-relaxed">
-                  "It was such a very special day when Michael asked Charlotte to be his wife. In that sacred moment, 
-                  wrapped in God’s nearness, we knew we were ready to enter into covenant and love one another eternally."
-                </p>
-                <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-[#D4A5A5] font-bold">August 30, 2025 • Benguet Mountains</p>
-              </div>
+            <div className="relative bg-white/90 backdrop-blur-sm p-10 rounded-[3rem] border border-pink-100 shadow-sm italic overflow-visible">
+
+  
+  {/* Decorative Ring */}
+  <img
+    src="/ring.png"
+    alt="Wedding ring decoration"
+    className="absolute bottom-[-70px] left-[-40px] w-24 md:w-40 opacity-90 ring-float"
+  />
+
+  <p className="font-serif text-xl text-[#8E7C9B] leading-relaxed relative z-10">
+    "It was such a very special day when Michael asked Charlotte to be his wife.
+    In that sacred moment, wrapped in God’s nearness, we knew we were ready to enter
+    into covenant and love one another eternally."
+  </p>
+
+  <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-[#D4A5A5] font-bold relative z-10">
+    August 30, 2025 • Benguet Mountains
+  </p>
+</div>
+
             </Reveal>
           </div>
         </div>
@@ -369,7 +503,7 @@ const handleSubmit = (e: React.FormEvent) => {
       <section id="details" className="py-32 px-6 bg-[#FDF8F8] relative overflow-hidden">
         <div className="absolute inset-0 opacity-[.5] pointer-events-none">
           <img 
-            src="/weddetails.jpg" 
+            src="/lilac.jpg" 
             alt="Garden pathway" 
             className="w-full h-full object-cover"
           />
@@ -380,7 +514,7 @@ const handleSubmit = (e: React.FormEvent) => {
           <Reveal delay={100}>
             <div className="relative overflow-hidden p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
               {/* Faded Background Image for Location Box */}
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-10 group-hover:opacity-20 transition-opacity">
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-25 group-hover:opacity-30 transition-opacity">
                 <img 
                   src="/garden.jpeg" 
                   alt="Trabiesa Garden Location" 
@@ -420,11 +554,11 @@ const handleSubmit = (e: React.FormEvent) => {
           <Reveal delay={300}>
             <div className="relative overflow-hidden p-12 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white hover:shadow-xl transition-all h-full group">
               {/* Faded Background Image for Reception Box */}
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-10 group-hover:opacity-20 transition-opacity">
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-25 group-hover:opacity-30 transition-opacity">
                 <img 
                   src="/pavillion.jpeg" 
                   alt="Trabiesa Pavillion Reception" 
-                  className="w-full h-full object-cover grayscale-[30%]"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
@@ -526,151 +660,83 @@ const handleSubmit = (e: React.FormEvent) => {
 
       </section>
 
-      {/* Entourage Section */}
-      <section id="entourage" className="py-32 px-6 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
-          <img 
-            src="https://images.unsplash.com/photo-1519225495810-751253df622a?auto=format&fit=crop&q=80&w=2000" 
-            alt="Wedding florals" 
-            className="w-full h-full object-cover"
-          />
-        </div>
 
-        <div className="max-w-6xl mx-auto relative z-10">
+        {/* Entourage Section with Responsive Card Stack */}
+        <section
+  id="entourage"
+  className="py-20 md:py-32 px-4 md:px-6 relative overflow-hidden bg-[#FDF8F8]"
+>
+  {/* Section Background Image */}
+  <div className="absolute inset-0 z-0 opacity-100 pointer-events-none">
+    <img
+      src="entourage.png"
+      alt="Floral background"
+      className="w-full h-full object-cover"
+    />
+  </div>
+
+  <div className="max-w-5xl mx-auto relative z-10">
           <SectionTitle subtitle="Witnesses of our Love">The Wedding Entourage</SectionTitle>
           
-          <div className="space-y-16">
-            <Reveal>
-              <div className="text-center max-w-2xl mx-auto p-12 bg-[#FDF8F8]/80 backdrop-blur-sm rounded-[3rem] shadow-sm border border-pink-50/50">
-                <Crown className="text-[#D4A5A5] mx-auto mb-4" size={32} />
-                <h4 className="font-script text-4xl text-[#8E7C9B] mb-8">Parents of the Bride</h4>
-                <p className="font-serif text-gray-400 mb-2 italic text-lg leading-relaxed">
-                  The late Cristina Garchitorena & Wilfredo Dizon (+)
-                </p>
-                
-                <div className="h-px w-24 bg-[#D4A5A5]/20 mx-auto my-8"></div>
-                
-                <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4A5A5] font-bold mb-6">Represented By</p>
-                <div className="grid grid-cols-2 gap-8">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1 italic">Aunt</p>
-                    <p className="font-serif text-xl text-[#5D5461]">Josefina Thompson</p>
+          <div className="relative min-h-[550px] md:h-[650px] w-full flex flex-col items-center">
+            {/* Card Stack Container */}
+            <div className="relative w-full flex-grow max-w-3xl perspective-1000">
+              {entourageData.map((card, index) => {
+                let order = (index - activeEntourageCard + entourageData.length) % entourageData.length;
+                let isActive = order === 0;
+                let scale = 1 - (order * 0.04);
+                let translateY = order * 12;
+                let zIndex = entourageData.length - order;
+                let opacity = order > 2 ? 0 : 1 - (order * 0.4);
+
+                return (
+                  <div
+                    key={index}
+                    className="absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                    style={{
+                      transform: `translateY(${translateY}px) scale(${scale})`,
+                      zIndex: zIndex,
+                      opacity: opacity,
+                      pointerEvents: isActive ? 'auto' : 'none',
+                    }}
+                  >
+                <div
+  className={`w-full h-full bg-white rounded-[2rem] md:rounded-[4rem] border border-[#FDF8F8] shadow-xl md:shadow-2xl p-6 md:p-12 flex flex-col transition-all relative ${isActive ? 'ring-1 ring-pink-50' : 'brightness-95'}`}
+>
+  <h4 className="font-script text-3xl md:text-5xl text-[#8E7C9B] mb-6 md:mb-10 text-center flex-shrink-0">
+    {card.title}
+  </h4>
+  <div className="w-full flex-grow overflow-hidden flex flex-col justify-center">
+    {card.content}
+  </div>
+
+  {/* Bottom-right decoration */}
+  <img
+    src="/deco1.png" // replace with your image URL
+    alt="Decoration"
+    className="absolute bottom-4 right-4 w-30 h-30 animate-bounce"
+  />
+</div>
+
                   </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1 italic">Brother</p>
-                    <p className="font-serif text-xl text-[#5D5461]">Jose Mari Dizon</p>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
+                );
+              })}
+            </div>
 
-            <Reveal delay={200}>
-              <div className="bg-[#FDF8F8]/90 backdrop-blur-md p-16 rounded-[4rem] shadow-sm border border-white">
-                <h4 className="font-script text-5xl text-center text-[#8E7C9B] mb-12">Principal Sponsors</h4>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                  {[
-                    ["Ptr. Chubasco Villamor", "Mrs. Emily Villamor"],
-                    ["Ptr. Ejaz Qaisars", "Mrs. Geraldine Qaisars"],
-                    ["Mr. Albert Anthony Tuason", "Mrs. Marina Carina Medel"],
-                    ["Mr. Salvador Altar", "Mrs. Lilibeth Altar"],
-                    ["Mr. Gerardo Ramon Romano", "Mrs. Roslyn Romano"],
-                    ["Mr. Richard Hamilton", "Mrs. Betty Tan-Gomez"],
-                    ["Mr. Kelly Kuhlmann", "Mrs. Lynn Thompson-Kuhlmann"],
-                    ["Mr. Andy Belmonte", "Mrs. Gladys Rosales"],
-                    ["Ptr. Sang Hyun Park", "Mrs. Josefa Callos"]
-                  ].map(([mr, mrs], i) => (
-                    <div key={i} className="text-center p-6 rounded-3xl hover:bg-white transition-all duration-500 hover:shadow-sm">
-                      <p className="font-serif text-[#5D5461] text-lg">{mr}</p>
-                      <p className="text-xs text-[#D4A5A5] font-script text-xl my-2">&</p>
-                      <p className="font-serif text-[#5D5461] text-lg">{mrs}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={300}>
-                <div className="grid md:grid-cols-2 gap-8">
-                    <div className="bg-white p-10 rounded-[3rem] border border-[#FDF8F8] text-center shadow-sm">
-                        <p className="text-[10px] uppercase tracking-widest text-[#D4A5A5] mb-2 font-bold">Bestman</p>
-                        <p className="font-serif text-2xl text-[#8E7C9B]">Mr. Rob Joy III</p>
-                    </div>
-                    <div className="bg-white p-10 rounded-[3rem] border border-[#FDF8F8] text-center shadow-sm">
-                        <p className="text-[10px] uppercase tracking-widest text-[#D4A5A5] mb-2 font-bold">Maid of Honor</p>
-                        <p className="font-serif text-2xl text-[#8E7C9B]">Viktoria Sarah P. Dizon</p>
-                    </div>
-                </div>
-            </Reveal>
-
-            <Reveal delay={400}>
-              <div className="bg-white p-16 rounded-[4rem] border border-[#FDF8F8] shadow-sm">
-                <h4 className="font-script text-4xl text-center text-[#8E7C9B] mb-12">Groomsmen & Bridesmaids</h4>
-                <div className="space-y-10 max-w-2xl mx-auto">
-                    {[
-                        ["Mr. Meynard Landicho Jr.", "Mrs. Genalyn Landicho"],
-                        ["Mr. Kenneth Rei Tuason", "Ms. Majel Melgarejo"],
-                        ["Mr. Erwin Caniba", "Ms. Marites Linsoco"]
-                    ].map(([man, lady], i) => (
-                        <div key={i} className="flex flex-col md:flex-row items-center justify-between gap-4 py-4 border-b border-pink-50 last:border-0">
-                            <p className="font-serif text-lg text-gray-700 text-center md:text-left md:w-5/12">{man}</p>
-                            <span className="text-[#D4A5A5] font-script text-2xl">&</span>
-                            <p className="font-serif text-lg text-gray-700 text-center md:text-right md:w-5/12">{lady}</p>
-                        </div>
-                    ))}
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={500}>
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  { label: "Candle", names: ["Mr. Ronaldo Surara", "Mrs. Christine Surara"] },
-                  { label: "Cord", names: ["Mr. Kevin Ralph Tuason", "Ms. Jenette Jaudian"] },
-                  { label: "Veil", names: ["Mr. Dohnell Dy", "Dra. Cara Imperial"] }
-                ].map((item, i) => (
-                  <div key={i} className="p-10 bg-[#FDF8F8] rounded-[3rem] text-center border border-white hover:bg-white transition-colors duration-500">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4A5A5] mb-4 font-bold">{item.label}</p>
-                    <p className="font-serif mb-1">{item.names[0]}</p>
-                    <p className="font-script text-xl text-[#D4A5A5] mb-1">&</p>
-                    <p className="font-serif">{item.names[1]}</p>
-                  </div>
+            {/* Navigation Controls */}
+            <div className="flex items-center gap-4 md:gap-8 mt-10 md:mt-12 relative z-50">
+              <button onClick={prevCard} className="p-3 md:p-4 rounded-full bg-white border border-pink-100 text-[#D4A5A5] hover:bg-[#D4A5A5] hover:text-white transition-all shadow-md">
+                <ChevronLeft size={20} />
+              </button>
+              <div className="flex gap-1.5 md:gap-2">
+                {entourageData.map((_, i) => (
+                  <button key={i} onClick={() => setActiveEntourageCard(i)} className={`h-1.5 rounded-full transition-all duration-500 ${activeEntourageCard === i ? 'w-6 md:w-8 bg-[#D4A5A5]' : 'w-1.5 bg-pink-100'}`} />
                 ))}
               </div>
-            </Reveal>
-
-            <Reveal delay={600}>
-              <div className="grid lg:grid-cols-2 gap-8">
-                <div className="bg-white p-12 rounded-[4rem] border border-[#FDF8F8] shadow-sm">
-                  <h4 className="font-script text-4xl text-[#8E7C9B] mb-10 text-center">Gentlemen Bearers</h4>
-                  <div className="space-y-8">
-                    {[
-                      { label: "Ring Bearer", name: "Mr. Seth Alain Callos" },
-                      { label: "Arrhae Bearer", name: "Mr. Jesus Gabriel Dizon" },
-                      { label: "Bible Bearer", name: "Mr. Ralph Laurenz Medel" }
-                    ].map((item, i) => (
-                      <div key={i} className="text-center group">
-                        <p className="text-[9px] uppercase tracking-widest text-gray-400 group-hover:text-[#D4A5A5] transition-colors">{item.label}</p>
-                        <p className="font-serif text-lg">{item.name}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-12 rounded-[4rem] border border-[#FDF8F8] shadow-sm">
-                  <h4 className="font-script text-4xl text-[#8E7C9B] mb-10 text-center">Flower Girls</h4>
-                  <div className="space-y-8">
-                    <div className="text-center group">
-                       <p className="text-[9px] uppercase tracking-widest text-gray-400 group-hover:text-[#D4A5A5] transition-colors">Flower Girl</p>
-                       <p className="font-serif text-lg">Ms. Vivienne Isabelle Kristine Dizon</p>
-                    </div>
-                    <div className="text-center group">
-                       <p className="text-[9px] uppercase tracking-widest text-gray-400 group-hover:text-[#D4A5A5] transition-colors">Flower Girl</p>
-                       <p className="font-serif text-lg">Ms. Joy Qaisars</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
+              <button onClick={nextCard} className="p-3 md:p-4 rounded-full bg-white border border-pink-100 text-[#D4A5A5] hover:bg-[#D4A5A5] hover:text-white transition-all shadow-md">
+                <ChevronRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </section>
