@@ -197,6 +197,29 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ children, subtitle }) => (
 
 const entourageData = [
   {
+    title: "Bride and Groom",
+    content: (
+      <div className="text-center px-2">
+        <Crown className="text-[#D4A5A5] mx-auto mb-4" size={28} />
+  
+        <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4A5A5] font-bold mb-3">
+          The Wedding Celebration of
+        </p>
+  
+        <p className="font-script text-3xl md:text-4xl text-[#8E7C9B] mb-4">
+          Michael <span className="mx-2">&</span> Charlotte
+        </p>
+  
+        <div className="h-px w-20 bg-[#D4A5A5]/30 mx-auto my-6 md:my-8"></div>
+  
+        <p className="font-serif text-gray-400 italic text-sm md:text-lg leading-relaxed">
+          United in love, faith, and God’s grace as they begin their forever.
+        </p>
+      </div>
+    )
+  },
+  
+  {
     title: "Parents of the Bride",
     content: (
       <div className="text-center px-2">
@@ -323,12 +346,8 @@ const faqData = [
     answer: "Due to venue capacity, we can only accommodate the number of seats reserved for you in your invitation. Please check your RSVP form for your specific guest count."
   },
   {
-    question: "What is your gift preference?",
-    answer: "Your presence at our wedding is the greatest gift of all. However, should you wish to honor us with a gift, a monetary contribution towards our new life together would be sincerely appreciated."
-  },
-  {
     question: "When is the RSVP deadline?",
-    answer: "Please let us know if you can join us by March 15, 2026. This helps us finalize arrangements with our venue and caterers."
+    answer: "Please let us know if you can join us by Feb 01, 2026. This helps us finalize arrangements with our venue and caterers."
   }
 ];
 
@@ -542,7 +561,7 @@ const faqData = [
     {/* Top Image */}
     <div className="w-full h-64 md:h-80 relative">
       <img 
-        src="/garden.jpeg" 
+        src="/ceremony.jpg" 
         alt="Trabiesa Garden Location" 
         className="w-full h-full object-cover rounded-t-[3rem] grayscale-[30%]"
       />
@@ -583,7 +602,7 @@ const faqData = [
     {/* Top Image */}
     <div className="w-full h-64 md:h-80 relative">
       <img 
-        src="/pavillion.jpeg" 
+        src="/reception.png" 
         alt="Trabiesa Pavillion Reception" 
         className="w-full h-full object-cover rounded-t-[3rem]"
       />
@@ -743,7 +762,7 @@ const faqData = [
   <img
     src="/deco1.png" // replace with your image URL
     alt="Decoration"
-    className="absolute bottom-[-100] right-[-100] w-60 h-60 animate-bounce"
+    className="absolute bottom-[-20] right-[-20] w-20 h-20 animate-bounce"
   />
 </div>
 
@@ -858,7 +877,7 @@ const faqData = [
       <Reveal delay={400}>
         <div className="grid grid-cols-2 gap-6 h-[400px]">
           <div className="relative  rounded-[3rem] shadow-lg flex flex-col items-center justify-center text-white transform hover:-translate-y-2 transition-transform duration-500 overflow-hidden group">
-            <img src="/dustyrose.png" alt="Dusty Rose" className="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
+            <img src="/dustyrose.jpg" alt="Dusty Rose" className="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-soft-light scale-110 group-hover:scale-125 transition-transform duration-[2000ms]" />
             <div className="relative z-10 text-center px-4">
               <span className="font-script text-4xl block drop-shadow-md">Dusty Rose</span>
             </div>
@@ -891,8 +910,7 @@ const faqData = [
                 <Gift className="text-[#D4A5A5] mx-auto mb-6" size={32} />
                 <h4 className="font-script text-4xl text-[#8E7C9B] mb-4">Wedding Registry</h4>
                 <p className="font-light text-gray-600 leading-relaxed mb-8">
-                  Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, 
-                  a contribution towards our future together would be sincerely appreciated. 
+                  Your presence at our wedding is the greatest gift of all.
                 </p>
                 <div className="inline-flex gap-4 p-4 bg-white/60 rounded-2xl border border-pink-50">
                    <div className="text-left px-4 border-r border-pink-100">
