@@ -912,16 +912,7 @@ const faqData = [
                 <p className="font-light text-gray-600 leading-relaxed mb-8">
                   Your presence at our wedding is the greatest gift of all.
                 </p>
-                <div className="inline-flex gap-4 p-4 bg-white/60 rounded-2xl border border-pink-50">
-                   <div className="text-left px-4 border-r border-pink-100">
-                      <p className="text-[8px] uppercase tracking-widest text-gray-400">GCash / Maya</p>
-                      <p className="font-serif font-bold text-[#8E7C9B]">-----</p>
-                   </div>
-                   <div className="text-left px-4">
-                      <p className="text-[8px] uppercase tracking-widest text-gray-400">BDO Account</p>
-                      <p className="font-serif font-bold text-[#8E7C9B]">----</p>
-                   </div>
-                </div>
+              
              </div>
           </Reveal>
         </div>
