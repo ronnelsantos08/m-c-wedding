@@ -282,6 +282,54 @@ const entourageData = [
     )
   },
   {
+    title: "Bridesmaids & Groomsmen",
+    content: (
+      <div className="px-2">
+        <div className="grid grid-cols-2 gap-6 md:gap-10 text-center">
+  
+          {/* Groomsmen */}
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.35em] text-[#A68DAD] mb-4 font-bold">
+              Groomsmen
+            </p>
+  
+            <div className="space-y-4">
+              <p className="font-serif text-[#5D5461] text-sm md:text-lg">
+                Mr. Meynard Landicho Jr.
+              </p>
+              <p className="font-serif text-[#5D5461] text-sm md:text-lg">
+                Mr. Kenneth Rei Tuason
+              </p>
+              <p className="font-serif text-[#5D5461] text-sm md:text-lg">
+                Mr. Erwin Caniba
+              </p>
+            </div>
+          </div>
+  
+          {/* Bridesmaids */}
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.35em] text-[#D4A5A5] mb-4 font-bold">
+              Bridesmaids
+            </p>
+  
+            <div className="space-y-4">
+              <p className="font-serif text-[#5D5461] text-sm md:text-lg">
+                Mrs. Genalyn Landicho
+              </p>
+              <p className="font-serif text-[#5D5461] text-sm md:text-lg">
+                Ms. Majel Melgarejo
+              </p>
+              <p className="font-serif text-[#5D5461] text-sm md:text-lg">
+                Ms. Marites Linsoco
+              </p>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    )
+  },  
+  {
     title: "Secondary Sponsors",
     content: (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-h-[350px] md:max-h-[450px] overflow-y-auto px-4 custom-scrollbar">
