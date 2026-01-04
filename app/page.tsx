@@ -248,6 +248,7 @@ const entourageData = [
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 max-h-[350px] md:max-h-[450px] overflow-y-auto px-4 custom-scrollbar">
         {[
           ["Ptr. Chubasco Villamor", "Mrs. Emily Villamor"],
+          ["Ptr. Salvador Nava", "Mrs. Elisa Nava"],
           ["Ptr. Ejaz Qaisars", "Mrs. Geraldine Qaisars"],
           ["Mr. Albert Anthony Tuason", "Mrs. Marina Carina Medel"],
           ["Mr. Salvador Altar", "Mrs. Lilibeth Altar"],
